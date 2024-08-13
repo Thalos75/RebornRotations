@@ -138,11 +138,11 @@ public sealed class DNC_Default : DancerRotation
     {
         act = null;
 
-        // Prevent action if currently dancing or holding too many feathers
-        if (IsDancing || Feathers > 3) return false;
+        // Prevent action if currently dancing
+        if (IsDancing) return false;
 
         // Logic for using Saber Dance and Starfall Dance based on burst mode or Esprit levels
-        if ((burst || Esprit >= 85) && SaberDancePvE.CanUse(out act, skipAoeCheck: true)) return true;
+        if ((burst || Esprit >= 50) && SaberDancePvE.CanUse(out act, skipAoeCheck: true)) return true;
 
         // Additional logic for using Tillana and Standard Step based on various checks
         if (!DevilmentPvE.CanUse(out _, skipComboCheck: true))
