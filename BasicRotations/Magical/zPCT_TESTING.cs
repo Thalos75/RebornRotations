@@ -1,9 +1,9 @@
-﻿namespace DefaultRotations.Magical;
+namespace DefaultRotations.Magical;
 
-[Rotation("zPCT Beta", CombatType.PvE, GameVersion = "7.05")]
-[SourceCode(Path = "main/DefaultRotations/Magical/zPCT_BETA.cs")]
+[Rotation("zPCT TESTING ONLY", CombatType.PvE, GameVersion = "7.05")]
+[SourceCode(Path = "main/DefaultRotations/Magical/zPCT_TESTING.cs")]
 [Api(3)]
-public sealed class zPCT_BETA : PictomancerRotation
+public sealed class zPCT_TESTING : PictomancerRotation
 {
     [RotationConfig(CombatType.PvE, Name = "Use HolyInWhite or CometInBlack while moving")]
     public bool HolyCometMoving { get; set; } = true;
@@ -122,7 +122,7 @@ public sealed class zPCT_BETA : PictomancerRotation
     [RotationDesc(ActionID.SmudgePvE)]
     protected override bool MoveForwardAbility(IAction nextGCD, out IAction? act)
     {
-        
+
         if (SmudgePvE.CanUse(out act)) return true;
 
         return base.MoveForwardAbility(nextGCD, out act);
@@ -176,9 +176,8 @@ public sealed class zPCT_BETA : PictomancerRotation
         // Weapon Painting Burst
         if (HammerStampPvE.CanUse(out act, skipCastingCheck: true, skipComboCheck: true)) return true;
 
-        if (Player.HasStatus(true, StatusID.Hyperphantasia))
+        if (HolyCometMoving && IsMoving)
         {
-            if (CometInBlackPvE.CanUse(out act, skipCastingCheck: true)) return true;
             if (HolyInWhitePvE.CanUse(out act, skipCastingCheck: true)) return true;
         }
 
@@ -186,7 +185,6 @@ public sealed class zPCT_BETA : PictomancerRotation
         if (Player.HasStatus(true, StatusID.Hyperphantasia))
         {
             if (CometInBlackPvE.CanUse(out act, skipCastingCheck: true)) return true;
-            if (HolyInWhitePvE.CanUse(out act, skipCastingCheck: true)) return true;
         }
 
         //Paint overcap protection
